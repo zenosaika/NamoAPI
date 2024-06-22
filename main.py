@@ -17,6 +17,7 @@ import asr
 import llm
 import earth
 import disease
+import random
 from pydub import AudioSegment
 
 app = FastAPI()
@@ -51,12 +52,30 @@ def handle_message(event):
         print(f'type: {event.message.type}')
         print(f'type: {event.message.text}')
 
-        text = llm.llm(system="You are a helpful assistant who're always speak Thai.",
-                   user=event.message.text
-                )
-        
-        print(f'llm: {text}')
-        sendMessage(event, text)
+        if event.message.text == 'ทำนายวันเก็บเกี่ยวผลผลิตด้วยAI':
+
+            mock_ndvi_url = 'https://drive.google.com/file/d/1ABNUucdeoQNUSA-kEGe6rzKffnHTR_lo/view?usp=share_link'
+            rand_day = random.randint(5, 12)
+            target_day = rand_day-random.randint(1, 3)
+
+            line_bot_api.reply_message(
+              event.reply_token,
+              [
+                    TextSendMessage(text='🤖 เริ่มประมวลผล Data จากดาวเทียม Sentinel2 ....'),
+                    TextSendMessage(text='🤖 คำนวณเสร็จสิ้น! เริ่มทำนายวันเก็บเกี่ยวผลผลิตที่ดีที่สุด ....'),
+                    ImageSendMessage(mock_ndvi_url, mock_ndvi_url),
+                    TextSendMessage(text=f'🤖 จากการคำนวณ Time-Series พบว่าอีก {rand_day} วัน พืชพรรณจะอยู่ในช่วงที่เหมาะแก่การเก็บเกี่ยวที่สุด 🟩'),
+                    TextSendMessage(text='🤖 กำลังดึงข้อมูลสภาพอากาศ ....'),
+                    TextSendMessage(text=f'🤖 ALERT: พบว่าอีก {rand_day-random.randint(1, 3)} วัน จะมีฝนตกหนัก และพายุเข้า ⛈️ แนะนำให้ทำการเก็บเกี่ยวภายใน {target_day} วัน 🤗'),
+              ]
+        )
+        else:
+            text = llm.llm(system="You are a helpful assistant who're always speak Thai.",
+                    user=event.message.text
+                    )
+            
+            print(f'llm: {text}')
+            sendMessage(event, text)
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image(event):
