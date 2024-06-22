@@ -3,6 +3,7 @@ aiohttp==3.9.5
 aiosignal==1.3.1
 annotated-types==0.7.0
 anyio==4.4.0
+appnope==0.1.4
 asttokens==2.4.1
 async-timeout==4.0.3
 attrs==23.2.0
@@ -17,6 +18,7 @@ colour==0.1.5
 comm==0.2.2
 contourpy==1.2.1
 cycler==0.12.1
+debugpy==1.8.1
 decorator==5.1.1
 Deprecated==1.2.14
 dnspython==2.6.1
@@ -56,12 +58,15 @@ importlib_metadata==7.2.0
 importlib_resources==6.4.0
 ipyevents==2.0.2
 ipyfilechooser==0.6.0
+ipykernel==6.29.4
 ipyleaflet==0.18.2
 ipython==8.18.1
 ipytree==0.2.2
 ipywidgets==8.1.3
 jedi==0.19.1
 Jinja2==3.1.4
+jupyter_client==8.6.2
+jupyter_core==5.7.2
 jupyterlab_widgets==3.0.11
 kiwisolver==1.4.5
 line-bot-sdk==3.11.0
@@ -75,6 +80,7 @@ multidict==6.0.5
 nest-asyncio==1.6.0
 networkx==3.2.1
 numpy==2.0.0
+opencv-python==4.10.0.84
 orjson==3.10.5
 packaging==24.1
 pandas==2.2.2

@@ -1,8 +1,11 @@
 import tensorflow as tf
 import numpy as np
 import cv2
+from efficientnet.tfkeras import EfficientNetB4
+
 
 model = tf.keras.models.load_model('/app/EfficientNetB0_.h5')
+
 
 def load_and_preprocess_image(image_path):
     img = cv2.imread(image_path)

@@ -12,6 +12,7 @@ from linebot.models import (
 )
 
 import os
+import ic
 import asr
 import llm
 import earth
@@ -105,6 +106,8 @@ def handle_location(event):
         print(f'longitude: {event.message.longitude}')
 
         img_url = earth.get_map(event.message.longitude, event.message.latitude)
+        
+        caption = ic.get_caption(img_url)
 
         line_bot_api.reply_message(
               event.reply_token,
@@ -112,7 +115,7 @@ def handle_location(event):
                     TextSendMessage(text='🤖 กำลังคำนวณดัชนีความแตกต่างพืชพรรณ (NDVI) จากดาวเทียม Sentinel2 ....'),
                     ImageSendMessage(img_url, img_url),
                     TextSendMessage(text='🤖 คำนวณเสร็จสิ้น! เริ่มทำการวิเคราะห์รูปภาพด้วย LLM ....'),
-                    
+                    TextSendMessage(text=caption),
               ]
         )
     
