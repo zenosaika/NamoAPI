@@ -31,7 +31,18 @@ def get_map(input_x, input_y):
         'bands': ['B4', 'B3', 'B2'],
     }
 
-    download_url = img.visualize(**visualization).getDownloadURL({
+    ndvi = img.normalizedDifference(['B5', 'B4']).rename('NDVI')
+
+    ndvi_vis = {
+    'min': 0.0, 
+    'max': 0.8, 
+    'palette': [
+        '#FFFFFF', '#FFFFFF', '#FF8800', '#FFCC00', 
+        '#FFFF00', '#CCFF00', '#00FF00', '#00BB00', 
+        ]
+    }
+
+    download_url = ndvi.visualize(**ndvi_vis).getDownloadURL({
     'scale': 1,
     'format': 'png'
     })
