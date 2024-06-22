@@ -62,7 +62,7 @@ def handle_audio(event):
         print(f'duration: {event.message.duration}')
         print(f'id: {event.message.id}')
 
-        if os.path.exists('audio'):
+        if not os.path.exists('audio'):
              os.makedirs('audio')
 
         filepath = f'audio/{event.message.id}'
