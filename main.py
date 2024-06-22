@@ -9,6 +9,9 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,  LocationMessage, AudioMessage, ImageMessage
 )
 
+import os
+import asr
+
 app = FastAPI()
 
 CHANNEL_ACCESS_TOKEN = '26i4XBXKTjIMN0uJs8NRX9jgxQBMyI7yNrt1ehnk6tE8/MRusauH7e1rOfDuwZ/DES05tX6bOKJ60iclJs8nOSszdm68PziJ2eBJ0kYSnB4xl0bEZh0ER0Ea0asNXq+pZTnKx0fX4265/OIntm2MZAdB04t89/1O/w1cDnyilFU='
@@ -40,7 +43,7 @@ def default(event):
 def handle_message(event):
         print(f'type: {event.message.type}')
         print(f'type: {event.message.text}')
-        
+
         if event.message.text == 'สวัสดี' : 
             sendMessage(event, 'สวัสดีชาวโลก')
         else:
@@ -56,6 +59,17 @@ def handle_audio(event):
         print(f'type: {event.message.type}')
         print(f'duration: {event.message.duration}')
         print(f'id: {event.message.id}')
+
+        if os.path.exist('audio'):
+             os.makedirs('audio')
+
+        filepath = 'audio/event.message.id'
+        get_content_and_write(event, filepath)
+
+        text = asr.speech2text(filepath)
+        os.remove(filepath)
+
+        print(f'speech2text: {text}')
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location(event):
@@ -73,3 +87,10 @@ def sendMessage(event,message):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message))
+        
+def get_content_and_write(event, write_to_path):
+    message_content = line_bot_api.get_message_content(event.message.id)
+
+    with open(write_to_path, 'wb') as f:
+        for chunk in message_content.iter_content():
+            f.write(chunk)
