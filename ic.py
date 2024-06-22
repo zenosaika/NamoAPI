@@ -37,5 +37,5 @@ def get_caption(img_url):
 
     generated_ids = model.generate(**inputs, max_new_tokens=500)
     generated_texts = processor.batch_decode(generated_ids, skip_special_tokens=True)
-
-    return generated_texts[0][len(question):]
+    
+    return generated_texts[0][len(question)+17:]
