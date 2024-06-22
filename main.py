@@ -6,7 +6,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage,  LocationMessage, AudioMessage, ImageMessage
 )
 
 app = FastAPI()
@@ -38,10 +38,31 @@ def default(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+        print(f'type: {event.message.type}')
+        print(f'type: {event.message.text}')
+        
         if event.message.text == 'สวัสดี' : 
             sendMessage(event, 'สวัสดีชาวโลก')
         else:
             echo(event)
+
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_image(event):
+        print(f'type: {event.message.type}')
+        print(f'id: {event.message.id}')
+
+@handler.add(MessageEvent, message=AudioMessage)
+def handle_audio(event):
+        print(f'type: {event.message.type}')
+        print(f'duration: {event.message.duration}')
+        print(f'id: {event.message.id}')
+
+@handler.add(MessageEvent, message=LocationMessage)
+def handle_location(event):
+        print(f'type: {event.message.type}')
+        print(f'address: {event.message.address}')
+        print(f'latitude: {event.message.latitude}')
+        print(f'longitude: {event.message.longitude}')
     
 def echo(event):
         line_bot_api.reply_message(
