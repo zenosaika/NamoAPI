@@ -13,6 +13,7 @@ from linebot.models import (
 
 import os
 import asr
+from pydub import AudioSegment
 
 app = FastAPI()
 
@@ -65,8 +66,12 @@ def handle_audio(event):
         if not os.path.exists('audio'):
              os.makedirs('audio')
 
-        filepath = f'audio/{event.message.id}.m4a'
+        filepath = f'audio/{event.message.id}'
         get_content_and_write(event, filepath)
+
+        # convert from m4a to wav format before pass to torchaudio
+        sound = AudioSegment.from_file(filepath, format='m4a')
+        file_handle = sound.export(filepath, format='wav')
 
         text = asr.speech2text(filepath)
         os.remove(filepath)
