@@ -106,7 +106,7 @@ def sendMessage(event, message):
 def sendImage(event, img_url):
         line_bot_api.reply_message(
             event.reply_token,
-            ImageSendMessage(img_url))
+            ImageSendMessage(img_url, img_url))
         
 def get_content_and_write(event, write_to_path):
     message_content = line_bot_api.get_message_content(event.message.id)
