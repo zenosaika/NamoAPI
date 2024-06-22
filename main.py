@@ -70,12 +70,15 @@ def handle_message(event):
               ]
         )
         else:
-            text = llm.llm(system="You are a helpful assistant who're always speak Thai.",
-                    user=event.message.text
-                    )
-            
-            print(f'llm: {text}')
-            sendMessage(event, text)
+            try:
+                text = llm.llm(system="You are a helpful assistant who're always speak Thai.",
+                        user=event.message.text
+                        )
+                
+                print(f'llm: {text}')
+                sendMessage(event, text)
+            except:
+                print('llm: error')
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image(event):
@@ -115,7 +118,16 @@ def handle_audio(event):
         os.remove(filepath)
 
         print(f'speech2text: {text}')
-        sendMessage(event, ''.join(text))
+
+        try:
+            text_llm = llm.llm(system="You are a helpful assistant who're always speak Thai.",
+                    user=''.join(text)
+                    )
+            
+            print(f'llm: {text_llm}')
+            sendMessage(event, text_llm)
+        except:
+            print('llm: error')
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location(event):
