@@ -12,7 +12,7 @@ from linebot.models import (
 )
 
 import os
-import ic
+# import ic
 import asr
 import llm
 import earth
