@@ -126,11 +126,11 @@ def handle_location(event):
 
         img_url = earth.get_map(event.message.longitude, event.message.latitude)
         
-        caption_en = ic.get_caption(img_url)
-        caption_th = llm.llm(
-              system='แปลจากภาษาอังกฤษเป็นภาษาไทย',
-              user=caption_en
-        )
+        # caption_en = ic.get_caption(img_url)
+        # caption_th = llm.llm(
+        #       system='แปลจากภาษาอังกฤษเป็นภาษาไทย',
+        #       user=caption_en
+        # )
 
         line_bot_api.reply_message(
               event.reply_token,
@@ -138,7 +138,8 @@ def handle_location(event):
                     TextSendMessage(text='🤖 กำลังคำนวณดัชนีความแตกต่างพืชพรรณ (NDVI) จากดาวเทียม Sentinel2 ....'),
                     ImageSendMessage(img_url, img_url),
                     TextSendMessage(text='🤖 คำนวณเสร็จสิ้น! เริ่มทำการวิเคราะห์รูปภาพด้วย LLM ....'),
-                    TextSendMessage(text=f'{caption_th}'),
+                    # TextSendMessage(text=f'{caption_th}'),
+                    TextSendMessage(text='😇 เนื่องจากโมเดล Idefics2 มีขนาดใหญ่ (60GB) หลังทำการ Demo เสร็จ ทางเราจึงทำการลบ weight ของโมเดลไปก่อน เพราะต้องใช้ storage ร่วมกับทีมอื่นครับ 🙇🏻'),
               ]
         )
     
