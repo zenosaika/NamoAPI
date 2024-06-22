@@ -54,7 +54,7 @@ def handle_message(event):
 
         if event.message.text == 'ทำนายวันเก็บเกี่ยวผลผลิตด้วยAI':
 
-            mock_ndvi_url = 'https://drive.google.com/file/d/1ABNUucdeoQNUSA-kEGe6rzKffnHTR_lo'
+            mock_ndvi_url = 'https://img2.pic.in.th/pic/1719095444669.png'
             rand_day = random.randint(5, 12)
             target_day = rand_day-random.randint(1, 3)
 
