@@ -1,3 +1,5 @@
+# docs: https://poeyza.medium.com/วิธีทำ-line-bot-ด้วย-line-python-sdk-5ceb9b138a84
+
 from fastapi import FastAPI, Request, Response
 from linebot import (
     LineBotApi, WebhookHandler
@@ -60,7 +62,7 @@ def handle_audio(event):
         print(f'duration: {event.message.duration}')
         print(f'id: {event.message.id}')
 
-        if os.path.exist('audio'):
+        if os.path.exists('audio'):
              os.makedirs('audio')
 
         filepath = 'audio/event.message.id'

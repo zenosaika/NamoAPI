@@ -2,6 +2,7 @@ from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
 import torch
 import torchaudio
 
+# https://huggingface.co/airesearch/wav2vec2-large-xlsr-53-th
 processor = Wav2Vec2Processor.from_pretrained("/app/wav2vec2-large-xlsr-53-th")
 model = Wav2Vec2ForCTC.from_pretrained("/app/wav2vec2-large-xlsr-53-th")
 
