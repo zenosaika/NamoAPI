@@ -8,10 +8,8 @@ from transformers.image_utils import load_image
 
 DEVICE = "cuda:0"
 
-processor = AutoProcessor.from_pretrained("HuggingFaceM4/idefics2-8b")
-model = AutoModelForVision2Seq.from_pretrained(
-    "HuggingFaceM4/idefics2-8b",
-).to(DEVICE)
+processor = AutoProcessor.from_pretrained("/app/idefics2-8b")
+model = AutoModelForVision2Seq.from_pretrained("/app/idefics2-8b").to(DEVICE)
 
 
 def get_caption(img_url):
