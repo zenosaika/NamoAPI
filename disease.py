@@ -25,4 +25,6 @@ def predict(img_path):
     # Assuming your model predicts class probabilities (softmax output), get the predicted class
     predicted_class = np.argmax(predictions[0])  # Assuming batch size is 1
 
-    return predicted_class
+    class_name = ['Healthy', 'Mosaic', 'RedRot', 'Rust', 'Yellow']
+
+    return class_name[predicted_class]

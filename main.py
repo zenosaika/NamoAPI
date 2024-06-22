@@ -73,7 +73,7 @@ def handle_image(event):
         os.remove(filepath)
         
         print(f'predicted class: {predicted_class}')
-        sendMessage(event, f'{predicted_class}')
+        sendMessage(event, f'🤖 จากการตรวจสอบด้วย AI พบว่าพืชพรรณในภาพจัดอยู่ในประเภท {predicted_class} !')
 
 
 @handler.add(MessageEvent, message=AudioMessage)
