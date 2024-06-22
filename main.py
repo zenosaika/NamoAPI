@@ -15,6 +15,7 @@ import os
 import asr
 import llm
 import earth
+import disease
 from pydub import AudioSegment
 
 app = FastAPI()
@@ -60,6 +61,19 @@ def handle_message(event):
 def handle_image(event):
         print(f'type: {event.message.type}')
         print(f'id: {event.message.id}')
+        
+        if not os.path.exists('image'):
+             os.makedirs('image')
+
+        filepath = f'image/{event.message.id}'
+        get_content_and_write(event, filepath)
+
+        predicted_class = disease.predict(filepath)
+        os.remove(filepath)
+        
+        print(f'predicted class: {predicted_class}')
+        sendMessage(event, f'{predicted_class}')
+
 
 @handler.add(MessageEvent, message=AudioMessage)
 def handle_audio(event):
