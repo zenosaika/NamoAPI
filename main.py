@@ -77,6 +77,7 @@ def handle_audio(event):
         os.remove(filepath)
 
         print(f'speech2text: {text}')
+        sendMessage(event, text)
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location(event):
