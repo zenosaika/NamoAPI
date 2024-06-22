@@ -1,6 +1,7 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 
+# https://huggingface.co/scb10x/llama-3-typhoon-v1.5-8b-instruct
 model_id = "/app/llama-3-typhoon-v1.5-8b-instruct"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)

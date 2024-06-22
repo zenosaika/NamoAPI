@@ -8,12 +8,13 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,  LocationMessage, AudioMessage, ImageMessage
+    MessageEvent, TextMessage, TextSendMessage,  LocationMessage, AudioMessage, ImageMessage, ImageSendMessage
 )
 
 import os
 import asr
 import llm
+import earth
 from pydub import AudioSegment
 
 app = FastAPI()
@@ -55,8 +56,6 @@ def handle_message(event):
         print(f'llm: {text}')
         sendMessage(event, text)
 
-        
-
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image(event):
         print(f'type: {event.message.type}')
@@ -89,6 +88,10 @@ def handle_location(event):
         print(f'address: {event.message.address}')
         print(f'latitude: {event.message.latitude}')
         print(f'longitude: {event.message.longitude}')
+
+        img_url = earth.get_map(event.message.longitude, event.message.latitude)
+
+        sendImage(event, img_url)
     
 def echo(event):
         line_bot_api.reply_message(
@@ -99,6 +102,11 @@ def sendMessage(event, message):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message))
+        
+def sendImage(event, img_url):
+        line_bot_api.reply_message(
+            event.reply_token,
+            ImageSendMessage(img_url))
         
 def get_content_and_write(event, write_to_path):
     message_content = line_bot_api.get_message_content(event.message.id)
