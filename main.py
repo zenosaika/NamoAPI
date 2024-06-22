@@ -13,6 +13,7 @@ from linebot.models import (
 
 import os
 import asr
+import llm
 from pydub import AudioSegment
 
 app = FastAPI()
@@ -47,10 +48,14 @@ def handle_message(event):
         print(f'type: {event.message.type}')
         print(f'type: {event.message.text}')
 
-        if event.message.text == 'สวัสดี' : 
-            sendMessage(event, 'สวัสดีชาวโลก')
-        else:
-            echo(event)
+        text = llm.llm(system="You are a helpful assistant who're always speak Thai.",
+                   user=event.message.text
+                )
+        
+        print(f'llm: {text}')
+        sendMessage(event, text)
+
+        
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image(event):
@@ -90,7 +95,7 @@ def echo(event):
             event.reply_token,
             TextSendMessage(text=event.message.text))
         
-def sendMessage(event,message):
+def sendMessage(event, message):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message))
