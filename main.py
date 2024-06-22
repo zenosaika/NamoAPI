@@ -115,7 +115,7 @@ def handle_location(event):
                     TextSendMessage(text='🤖 กำลังคำนวณดัชนีความแตกต่างพืชพรรณ (NDVI) จากดาวเทียม Sentinel2 ....'),
                     ImageSendMessage(img_url, img_url),
                     TextSendMessage(text='🤖 คำนวณเสร็จสิ้น! เริ่มทำการวิเคราะห์รูปภาพด้วย LLM ....'),
-                    TextSendMessage(text=caption),
+                    TextSendMessage(text=f'{caption}'),
               ]
         )
     
