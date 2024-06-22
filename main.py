@@ -92,9 +92,15 @@ def handle_location(event):
 
         img_url = earth.get_map(event.message.longitude, event.message.latitude)
 
-        sendMessage(event, '🤖 กำลังคำนวณดัชนีความแตกต่างพืชพรรณ (NDVI) จากดาวเทียม Sentinel2 ....')
-        sendImage(event, img_url)
-        sendMessage(event, '🤖 คำนวณเสร็จสิ้น! เริ่มทำการวิเคราะห์รูปภาพด้วย LLM ....')
+        line_bot_api.reply_message(
+              event.reply_token,
+              [
+                    TextSendMessage(text='🤖 กำลังคำนวณดัชนีความแตกต่างพืชพรรณ (NDVI) จากดาวเทียม Sentinel2 ....'),
+                    ImageSendMessage(img_url, img_url),
+                    TextSendMessage(text='🤖 คำนวณเสร็จสิ้น! เริ่มทำการวิเคราะห์รูปภาพด้วย LLM ....'),
+                    
+              ]
+        )
     
 def echo(event):
         line_bot_api.reply_message(
