@@ -65,7 +65,7 @@ def handle_audio(event):
         if os.path.exists('audio'):
              os.makedirs('audio')
 
-        filepath = 'audio/event.message.id'
+        filepath = f'audio/{event.message.id}'
         get_content_and_write(event, filepath)
 
         text = asr.speech2text(filepath)
