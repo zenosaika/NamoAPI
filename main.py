@@ -32,6 +32,10 @@ async def hello_word(request: Request):
         print("Invalid signature. Please check your channel access token/channel secret.")
     return 'OK'
 
+@handler.default()
+def default(event):
+    print(event)
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
         if event.message.text == 'สวัสดี' : 
